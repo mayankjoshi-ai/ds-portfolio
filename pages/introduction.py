@@ -121,7 +121,7 @@ def show_page():
     # Fun Fact Display
     st.info("""
     **Did You Know?**  
-    Mayank means Moon 🌛
+    Mayank means Moon 🌛 (No wonder I'm always over the moon about everything!! 🚀🤷🏻)
     """)
 
     # Career Timeline

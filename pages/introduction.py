@@ -86,7 +86,7 @@ def show_page():
 
             <div class="character-container">
                 <div class="speech-bubble">
-                    Hi there! 👋<br>Welcome to my portfolio!
+                    Hey Yo! 👋<br>Dont forget to heck out the Projects section, it has got crazy cool stuff! Thank me later 😉
                 </div>
                 <svg class="character" viewBox="0 0 100 140">
                     <!-- Body -->

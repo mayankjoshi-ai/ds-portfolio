@@ -2,6 +2,118 @@ def show_page():
     import streamlit as st
     import time
 
+    # Add animated character CSS and HTML before the main title
+    st.markdown("""
+            <style>
+                /* Animated character container */
+                .character-container {
+                    position: fixed;
+                    bottom: -100%;
+                    right: 20px;
+                    width: 150px;
+                    height: 200px;
+                    z-index: 1000;
+                    animation: slideUp 1s ease forwards 1s;
+                }
+
+                /* Character animation */
+                @keyframes slideUp {
+                    0% { bottom: -100%; }
+                    100% { bottom: 20px; }
+                }
+
+                /* Speech bubble */
+                .speech-bubble {
+                    position: absolute;
+                    background: #1E88E5;
+                    border-radius: 15px;
+                    padding: 15px;
+                    color: white;
+                    font-size: 16px;
+                    width: 150px;
+                    top: -80px;
+                    left: -80px;
+                    opacity: 0;
+                    animation: fadeIn 0.5s ease forwards 2s;
+                }
+
+                .speech-bubble:after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    right: 20%;
+                    width: 0;
+                    height: 0;
+                    border: 15px solid transparent;
+                    border-top-color: #1E88E5;
+                    border-bottom: 0;
+                    margin-bottom: -15px;
+                }
+
+                /* Wave animation for character's hand */
+                @keyframes wave {
+                    0% { transform: rotate(0deg); }
+                    25% { transform: rotate(-20deg); }
+                    75% { transform: rotate(20deg); }
+                    100% { transform: rotate(0deg); }
+                }
+
+                /* Fade in animation */
+                @keyframes fadeIn {
+                    0% { opacity: 0; transform: translateY(20px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                }
+
+                /* Animated character */
+                .character {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                }
+
+                .character .hand {
+                    position: absolute;
+                    top: 50%;
+                    right: 20%;
+                    width: 30px;
+                    height: 30px;
+                    background: #FFB74D;
+                    border-radius: 50%;
+                    transform-origin: bottom center;
+                    animation: wave 2s infinite;
+                }
+            </style>
+
+            <div class="character-container">
+                <div class="speech-bubble">
+                    Hi there! 👋<br>Welcome to my portfolio!
+                </div>
+                <svg class="character" viewBox="0 0 100 140">
+                    <!-- Body -->
+                    <circle cx="50" cy="50" r="30" fill="#2196F3"/>
+                    <!-- Head -->
+                    <circle cx="50" cy="30" r="20" fill="#FFB74D"/>
+                    <!-- Eyes -->
+                    <circle cx="43" cy="25" r="3" fill="#333"/>
+                    <circle cx="57" cy="25" r="3" fill="#333"/>
+                    <!-- Smile -->
+                    <path d="M40 35 Q50 45 60 35" stroke="#333" fill="none" stroke-width="2"/>
+                    <!-- Hand -->
+                    <circle cx="80" cy="50" r="8" fill="#FFB74D">
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="0 80 45"
+                            to="20 80 45"
+                            dur="0.5s"
+                            repeatCount="indefinite"
+                            values="0 80 45; 20 80 45; 0 80 45"
+                        />
+                    </circle>
+                </svg>
+            </div>
+        """, unsafe_allow_html=True)
+    
     st.title("🙋‍♂️ Welcome to Mayank's Data Science Portfolio!")
     # st.image("images/mayank_pic.jpg", caption="AI Scientist", use_container_width=True)
     st.write("Hi, I'm Mayank Joshi, a curious AI Scientist with 6+ years of experience in Data Science and Analytics who loves solving real-world problems with AI and analytics. From crafting predictive models to automating workflows, I bring ideas to life with data. Always innovating, always learning—I'm here to make technology work smarter, not harder, for everyone.")

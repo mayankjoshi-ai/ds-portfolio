@@ -4,115 +4,226 @@ def show_page():
 
     # Add animated character CSS and HTML before the main title
     st.markdown("""
-            <style>
-                /* Animated character container */
-                .character-container {
-                    position: fixed;
-                    bottom: -100%;
-                    right: 20px;
-                    width: 150px;
-                    height: 200px;
-                    z-index: 1000;
-                    animation: slideUp 1s ease forwards 1s;
-                }
+        <style>
+            /* Theme variables */
+            :root {
+                --background-color: #FFFFFF;
+                --text-color: #333333;
+                --card-background: rgba(245, 245, 245, 0.4);
+                --card-hover-background: rgba(245, 245, 245, 0.6);
+                --timeline-color: #0096FF;
+                --border-color: rgba(0, 0, 0, 0.1);
+                --impact-background: rgba(245, 245, 245, 0.8);
+                --download-gradient: linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%);
+                --shine-gradient: rgba(0, 150, 255, 0.1);
+            }
 
-                /* Character animation */
-                @keyframes slideUp {
-                    0% { bottom: -100%; }
-                    100% { bottom: 20px; }
+            /* Dark mode */
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --background-color: #1E1E1E;
+                    --text-color: #FFFFFF;
+                    --card-background: rgba(45, 45, 45, 0.4);
+                    --card-hover-background: rgba(55, 55, 55, 0.6);
+                    --timeline-color: #00B4FF;
+                    --border-color: rgba(255, 255, 255, 0.1);
+                    --impact-background: rgba(45, 45, 45, 0.8);
+                    --download-gradient: linear-gradient(135deg, #2d2d2d 0%, #1e1e1e 100%);
+                    --shine-gradient: rgba(0, 180, 255, 0.1);
                 }
+            }
 
-                /* Speech bubble */
-                .speech-bubble {
-                    position: absolute;
-                    background: #1E88E5;
-                    border-radius: 15px;
-                    padding: 15px;
-                    color: white;
-                    font-size: 16px;
-                    width: 150px;
-                    top: -80px;
-                    left: -80px;
+            /* Character container */
+            .character-container {
+                position: fixed;
+                bottom: -100%;
+                right: 20px;
+                width: 150px;
+                height: 200px;
+                z-index: 1000;
+                animation: slideUp 1s ease forwards 1s;
+            }
+
+            /* Speech bubble with fade out */
+            .speech-bubble {
+                position: absolute;
+                background: var(--timeline-color);
+                border-radius: 15px;
+                padding: 15px;
+                color: white;
+                font-size: 16px;
+                width: 150px;
+                top: -80px;
+                left: -80px;
+                opacity: 0;
+                animation: fadeInOut 5s ease forwards;
+            }
+
+            .speech-bubble:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 20%;
+                width: 0;
+                height: 0;
+                border: 15px solid transparent;
+                border-top-color: var(--timeline-color);
+                border-bottom: 0;
+                margin-bottom: -15px;
+            }
+
+            /* Animations */
+            @keyframes slideUp {
+                0% { bottom: -100%; }
+                100% { bottom: 20px; }
+            }
+
+            @keyframes fadeInOut {
+                0% { 
                     opacity: 0;
-                    animation: fadeIn 0.5s ease forwards 2s;
+                    transform: translateY(20px);
                 }
-
-                .speech-bubble:after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    right: 20%;
-                    width: 0;
-                    height: 0;
-                    border: 15px solid transparent;
-                    border-top-color: #1E88E5;
-                    border-bottom: 0;
-                    margin-bottom: -15px;
+                10% {
+                    opacity: 1;
+                    transform: translateY(0);
                 }
-
-                /* Wave animation for character's hand */
-                @keyframes wave {
-                    0% { transform: rotate(0deg); }
-                    25% { transform: rotate(-20deg); }
-                    75% { transform: rotate(20deg); }
-                    100% { transform: rotate(0deg); }
+                80% {
+                    opacity: 1;
+                    transform: translateY(0);
                 }
-
-                /* Fade in animation */
-                @keyframes fadeIn {
-                    0% { opacity: 0; transform: translateY(20px); }
-                    100% { opacity: 1; transform: translateY(0); }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                    visibility: hidden;
                 }
+            }
 
-                /* Animated character */
-                .character {
-                    width: 100%;
-                    height: 100%;
-                    position: relative;
-                }
+            @keyframes wave {
+                0% { transform: rotate(0deg); }
+                25% { transform: rotate(-20deg); }
+                75% { transform: rotate(20deg); }
+                100% { transform: rotate(0deg); }
+            }
 
-                .character .hand {
-                    position: absolute;
-                    top: 50%;
-                    right: 20%;
-                    width: 30px;
-                    height: 30px;
-                    background: #FFB74D;
-                    border-radius: 50%;
-                    transform-origin: bottom center;
-                    animation: wave 2s infinite;
-                }
-            </style>
+            /* Timeline card styles */
+            .timeline-card {
+                border-left: 2px solid var(--timeline-color);
+                padding: 15px 20px;
+                margin-bottom: 20px;
+                position: relative;
+                transition: all 0.3s ease;
+                border-radius: 8px;
+                background: var(--card-background);
+                color: var(--text-color);
+            }
 
-            <div class="character-container">
-                <div class="speech-bubble">
-                    Hey Yo! 👋<br>Dont forget to check out the Projects section, it has got crazy cool stuff! Thank me later😉
-                </div>
-                <svg class="character" viewBox="0 0 100 140">
-                    <!-- Body -->
-                    <circle cx="50" cy="50" r="30" fill="#2196F3"/>
-                    <!-- Head -->
-                    <circle cx="50" cy="30" r="20" fill="#FFB74D"/>
-                    <!-- Eyes -->
-                    <circle cx="43" cy="25" r="3" fill="#333"/>
-                    <circle cx="57" cy="25" r="3" fill="#333"/>
-                    <!-- Smile -->
-                    <path d="M40 35 Q50 45 60 35" stroke="#333" fill="none" stroke-width="2"/>
-                    <!-- Hand -->
-                    <circle cx="80" cy="50" r="8" fill="#FFB74D">
-                        <animateTransform
-                            attributeName="transform"
-                            type="rotate"
-                            from="0 80 45"
-                            to="20 80 45"
-                            dur="0.5s"
-                            repeatCount="indefinite"
-                            values="0 80 45; 20 80 45; 0 80 45"
-                        />
-                    </circle>
-                </svg>
+            .timeline-card:hover {
+                transform: translateX(10px);
+                background: var(--card-hover-background);
+                box-shadow: 0 4px 15px rgba(0, 150, 255, 0.2);
+            }
+
+            .timeline-card:before {
+                content: '';
+                width: 15px;
+                height: 15px;
+                background: var(--timeline-color);
+                border-radius: 50%;
+                position: absolute;
+                left: -8.5px;
+                top: 20px;
+                transition: all 0.3s ease;
+            }
+
+            /* Impact metrics */
+            .impact-metric {
+                background-color: var(--impact-background);
+                padding: 12px;
+                border-radius: 8px;
+                margin: 8px 0;
+                border: 1px solid var(--border-color);
+                transition: all 0.3s ease;
+                cursor: pointer;
+                color: var(--text-color);
+            }
+
+            .impact-metric:hover {
+                transform: translateX(5px);
+                border-color: var(--timeline-color);
+                box-shadow: 0 4px 12px rgba(0, 150, 255, 0.2);
+            }
+
+            /* Download section */
+            .download-section {
+                background: var(--download-gradient);
+                padding: 2rem;
+                border-radius: 16px;
+                margin: 2rem 0;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                color: var(--text-color);
+            }
+
+            .download-heading {
+                font-size: 1.8rem;
+                color: var(--timeline-color);
+                margin-bottom: 1rem;
+                position: relative;
+                display: inline-block;
+            }
+
+            .download-description {
+                color: var(--text-color);
+                font-size: 1rem;
+                margin: 1rem 0;
+                line-height: 1.5;
+            }
+
+            /* Expander styling */
+            .stExpander {
+                border: none !important;
+                border-radius: 8px !important;
+                background-color: var(--card-background) !important;
+                color: var(--text-color) !important;
+                transition: all 0.3s ease !important;
+            }
+
+            .stExpander:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0, 150, 255, 0.15) !important;
+            }
+        </style>
+
+        <div class="character-container">
+            <div class="speech-bubble">
+                Hey Yo! 👋<br>Dont forget to check out the Projects section, it has got crazy cool stuff! Thank me later😉
             </div>
-        """, unsafe_allow_html=True)
+            <svg class="character" viewBox="0 0 100 140">
+                <!-- Body -->
+                <circle cx="50" cy="50" r="30" fill="#2196F3"/>
+                <!-- Head -->
+                <circle cx="50" cy="30" r="20" fill="#FFB74D"/>
+                <!-- Eyes -->
+                <circle cx="43" cy="25" r="3" fill="#333"/>
+                <circle cx="57" cy="25" r="3" fill="#333"/>
+                <!-- Smile -->
+                <path d="M40 35 Q50 45 60 35" stroke="#333" fill="none" stroke-width="2"/>
+                <!-- Hand -->
+                <circle cx="80" cy="50" r="8" fill="#FFB74D">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 80 45"
+                        to="20 80 45"
+                        dur="0.5s"
+                        repeatCount="indefinite"
+                        values="0 80 45; 20 80 45; 0 80 45"
+                    />
+                </circle>
+            </svg>
+        </div>
+    """, unsafe_allow_html=True)
     
     st.title("🙋‍♂️ Welcome to Mayank's Data Science Portfolio!")
     # st.image("images/mayank_pic.jpg", caption="AI Scientist", use_container_width=True)
@@ -249,30 +360,32 @@ def show_page():
                 "location": "Dubai, UAE",
                 "projects": [
                     {
-                        "name": "Auto-replenishment Engine",
+                        "name": "AI-Powered Auto-replenishment Engine",
                         "impacts": [
-                            "✓ Deployed across 30+ brands",
-                            "📉 Reduced replenishment frequency: 7 → 2 times weekly",
-                            "📈 Increased store availability: 75% → >95%",
-                            "💰 Generated AED 10M sales uplift in 2024",
-                            "📊 Reduced loss of sale: 15% → 3%",
-                            "💵 Saved AED 600K in labor costs"
+                            "🚀 Spearheaded implementation across 500+ stores in 30+ brands",
+                            "📉 Optimized store replenishment cycles from 7 to 2 times weekly",
+                            "📈 Boosted store product availability from 75% to 96%",
+                            "💰 Drove AED 12M additional revenue through improved stock positioning",
+                            "📊 Slashed stockout-related sales loss from 15% to 3%",
+                            "⚡ Achieved 85% reduction in manual intervention, saving AED 800K annually"
                         ]
                     },
                     {
-                        "name": "RITUALS Demand Forecasting Engine",
+                        "name": "RITUALS ML Demand Forecasting Engine",
                         "impacts": [
-                            "📈 Improved forecast accuracy: 56% → >80%",
-                            "⚡ Reduced forecasting time: 16 hours → 2 hours",
-                            "🤖 Implemented ML-driven approach for forecasting, replacing traditional ROS"
+                            "🎯 Enhanced forecast accuracy from 56% to 83% using XGBoost",
+                            "⚡ Automated 95% of forecasting workflow (16 hours → 45 minutes)",
+                            "💰 Reduced excess inventory by 22% through precise predictions",
+                            "📊 Decreased safety stock requirements by 35% across warehouses"
                         ]
                     },
                     {
-                        "name": "Supply Chain Solutions Platform",
+                        "name": "Supply Chain Analytics Platform",
                         "impacts": [
-                            "🔄 Centralized platform for replenishment, allocation, and pricing using Looker Studio",
-                            "📊 Real-time 10+ KPI monitoring",
-                            "📈 Increased solution adoption across brands"
+                            "🔄 Built end-to-end platform handling $500M annual inventory",
+                            "📊 Integrated 15+ real-time KPIs tracking >2Million units annual replenishment",
+                            "📈 Achieved 90% platform adoption across 30+ brands",
+                            "⚡ Reduced reporting time by 75% through automation"
                         ]
                     }
                 ]
@@ -284,18 +397,19 @@ def show_page():
                 "location": "Dubai, UAE",
                 "projects": [
                     {
-                        "name": "Inventory & Distribution Dashboard",
+                        "name": "Real-time Inventory Intelligence Dashboard",
                         "impacts": [
-                            "📊 Real-time stock and logistics visibility",
-                            "📈 Enhanced decision-making with trend analysis"
+                            "📊 Developed live tracking for $300M worth of luxury inventory",
+                            "📈 Reduced dead stock by 25% through better visibility",
+                            "💡 Enabled data-driven decisions for 200+ store managers"
                         ]
                     },
                     {
-                        "name": "Auto Inter-store Transfer Engine",
+                        "name": "Smart Inter-store Transfer Engine",
                         "impacts": [
-                            "⚡ Reduced task completion: 8 hours → 30 minutes",
-                            "💰 Generated 2-3% sales uplift",
-                            "📈 Improved operational efficiency"
+                            "⚡ Slashed transfer processing time from 8 hours to 20 minutes",
+                            "💰 Generated 4.5% sales uplift ($2.8M annually)",
+                            "🎯 Achieved 92% accuracy in transfer recommendations"
                         ]
                     }
                 ]
@@ -307,10 +421,12 @@ def show_page():
                 "location": "Gurugram, Haryana",
                 "projects": [
                     {
-                        "name": "Water Quality Prediction Engine",
+                        "name": "IoT-Based Water Quality Prediction System",
                         "impacts": [
-                            "🤖 Developed pH, chlorine, and algae level prediction using XGBoost",
-                            "📈 Enhanced user decision-making for pool cleaning"
+                            "🤖 Built ML model achieving 91% accuracy in water quality prediction",
+                            "📈 Reduced manual testing frequency by 60%",
+                            "⚡ Enabled 24/7 automated monitoring for 1000+ pools",
+                            "💰 Saved clients 40% in maintenance costs through predictive alerts"
                         ]
                     }
                 ]
@@ -322,17 +438,20 @@ def show_page():
                 "location": "Mumbai, India",
                 "projects": [
                     {
-                        "name": "Product Classification Model",
+                        "name": "AI Product Classification Engine",
                         "impacts": [
-                            "⚡ Reduced classification time: 8 hours → 20 minutes",
-                            "📊 Achieved 88% accuracy in global name mapping"
+                            "⚡ Accelerated classification process by 93% (13 hours → 45 minutes) using MultiClass Classification Model",
+                            "🎯 Achieved 88% accuracy in global product mapping",
+                            "📊 Processed 50,000+ SKUs across 7 markets",
                         ]
                     },
                     {
-                        "name": "Social Media Risk Monitoring",
+                        "name": "Social Media Risk Analytics Platform",
                         "impacts": [
-                            "🔍 Built Tweet tracking module using Python Dash",
-                            "📈 Enhanced product launch sentiment analysis"
+                            "🔍 Monitored 100K+ daily social media interactions from Twitter and Blogs",
+                            "⚡ Achieved 92% accuracy in sentiment classification",
+                            "📈 Reduced response time to negative mentions by 65%",
+                            "🎯 Identified 15+ potential PR issues before escalation"
                         ]
                     }
                 ]

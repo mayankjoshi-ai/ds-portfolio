@@ -250,6 +250,7 @@ def show_page():
                                 padding: 15px 20px;
                                 border-radius: 8px;
                                 background: rgba(245, 245, 245, 0.4);
+                                color: #000000;
                             }
 
                             .timeline-card:hover {
@@ -299,6 +300,7 @@ def show_page():
                                 border: 1px solid rgba(0, 0, 0, 0.1);
                                 transition: all 0.3s ease;
                                 cursor: pointer;
+                                color: #000000;
                             }
 
                             .impact-metric:hover {
@@ -314,6 +316,7 @@ def show_page():
                                 border-radius: 8px !important;
                                 background-color: #FFFFFF !important;
                                 transition: all 0.3s ease !important;
+                                color: #000000 !important;
                             }
 
                             .stExpander:hover {
@@ -324,11 +327,13 @@ def show_page():
                             /* Company name styles */
                             .timeline-card h3 {
                                 transition: all 0.3s ease;
+                                color: #000000;
                             }
 
                             /* Role and period text styles */
                             .timeline-card p {
                                 transition: all 0.3s ease;
+                                color: #000000;
                             }
 
                             /* Make expanders same height in a row */

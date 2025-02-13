@@ -323,22 +323,12 @@ def show_page():
 
                             /* Company name styles */
                             .timeline-card h3 {
-                                color: #0096FF !important;
                                 transition: all 0.3s ease;
-                            }
-
-                            .timeline-card:hover h3 {
-                                color: #00B4FF !important;
                             }
 
                             /* Role and period text styles */
                             .timeline-card p {
-                                color: #333333 !important;
                                 transition: all 0.3s ease;
-                            }
-
-                            .timeline-card:hover p {
-                                color: #000000 !important;
                             }
 
                             /* Make expanders same height in a row */

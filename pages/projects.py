@@ -97,13 +97,6 @@ def show_page():
                 customer_insights.show_dashboard()
 
             project_card(
-                "🎯 Customer Insights & Campaign Platform",
-                "A modular analytics solution that aggregates customer data from multiple sources to drive targeted campaigns. Enabled reactivation of lost customers and increased purchase frequency through data-driven promotions across 30+ brands, generating $2M+ in additional sales. The platform provides both quick and detailed customer analytics views, empowering brands with actionable insights for informed decision-making.",
-                "customer_insights",
-                launch_customer_insights
-            )
-
-            project_card(
                 "👥 Customer Churn Analytics",
                 "An endeavor in customer churn prediction through logistic regression, harnessing data science for enhanced customer retention.",
                 "churn_analytics"

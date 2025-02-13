@@ -12,3 +12,5 @@ tenacity>=8.2.2
 aiohttp>=3.8.5
 fake-useragent>=1.1.1
 rich>=13.3.5
+scipy>=1.15.1
+

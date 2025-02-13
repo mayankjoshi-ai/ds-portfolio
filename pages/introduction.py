@@ -365,15 +365,16 @@ def show_page():
                             "🚀 Spearheaded implementation across 500+ stores in 30+ brands",
                             "📉 Optimized store replenishment cycles from 7 to 2 times weekly",
                             "📈 Boosted store product availability from 75% to 96%",
-                            "💰 Drove AED 12M additional revenue through improved stock positioning",
+                            "💰 Drove AED 12M additional revenue through improved stock positioning in 2024",
                             "📊 Slashed stockout-related sales loss from 15% to 3%",
                             "⚡ Achieved 85% reduction in manual intervention, saving AED 800K annually"
                         ]
                     },
                     {
-                        "name": "RITUALS ML Demand Forecasting Engine",
+                        "name": "AI-Powered Demand Forecasting Engine",
                         "impacts": [
-                            "🎯 Enhanced forecast accuracy from 56% to 83% using XGBoost",
+                            "🚀 Spearheaded implementation across 500+ stores in 30+ brands",
+                            "🎯 Enhanced forecast accuracy from 56% to 83% using Machine Learning (Ensemble Models)",
                             "⚡ Automated 95% of forecasting workflow (16 hours → 45 minutes)",
                             "💰 Reduced excess inventory by 22% through precise predictions",
                             "📊 Decreased safety stock requirements by 35% across warehouses"
@@ -387,7 +388,18 @@ def show_page():
                             "📈 Achieved 90% platform adoption across 30+ brands",
                             "⚡ Reduced reporting time by 75% through automation"
                         ]
-                    }
+                    },
+                    {
+                        "name": "Customer Insights & Campaign Platform",
+                        "impacts": [
+                            "🎯 Built modular analytics solution aggregating data from multiple sources for 30+ brands",
+                            "📈 Generated $2M+ in additional sales through targeted campaigns",
+                            "🔄 Successfully reactivated lost customers and increased purchase frequency",
+                            "📊 Provided brands with quick and detailed customer analytics views",
+                            "💡 Empowered data-driven decision making for campaign strategies",
+                            "⚡ Streamlined customer segmentation and campaign targeting process"
+                        ]
+                    },
                 ]
             },
             {

@@ -87,14 +87,6 @@ def show_page():
             "category": "Data Visualization",
             "key": "retail_dashboard",
             "on_click": launch_sales_dashboard
-        },
-        {
-            "title": "🎯 Personalized Product Recommendations Engine",
-            "description": "A sophisticated recommendation system that combines collaborative filtering, content-based filtering, and real-time behavior analysis to deliver personalized product suggestions. Features include hybrid recommendation approach combining user behavior and purchase history, real-time preference learning, A/B testing framework, cross-category discovery, and seasonal trend awareness. Achieved 27% increase in cross-selling success rate, 35% improvement in customer engagement, and 18% boost in average order value.",
-            "domain": "Retail",
-            "category": "Predictive Models",
-            "key": "product_recommendations",
-            "on_click": None
         }
     ]
 

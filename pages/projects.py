@@ -27,20 +27,10 @@ def show_page():
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        /* Tab styling */
-        .stTabs [data-baseweb="tab-list"] {
-            gap: 8px;
-        }
-
-        .stTabs [data-baseweb="tab"] {
-            padding: 8px 16px;
-            border-radius: 4px;
-        }
         </style>
     """, unsafe_allow_html=True)
 
-    def project_card(title, description, button_key, on_click=None):
+    def project_card(title, description, domain, category, button_key, on_click=None):
         """Display a project card with title, description, and button."""
         with st.container():
             col1, col2 = st.columns([5, 1])
@@ -49,6 +39,7 @@ def show_page():
             with col1:
                 st.subheader(title)
                 st.write(description)
+                st.caption(f"🏷️ {domain} | {category}")
             
             # Launch button in the right column, vertically centered
             with col2:
@@ -65,76 +56,65 @@ def show_page():
             st.markdown("---")
 
     st.title("Projects Portfolio")
+
+    # Sidebar filters
+    with st.sidebar:
+        st.header("🔍 Filter Projects")
+        st.markdown("---")
+        
+        # Domain filter
+        domains = ["All Domains", "Retail", "Finance", "Tech & AI", "Manufacturing", "Healthcare"]
+        selected_domain = st.selectbox("🏢 Select Domain", domains)
+        
+        # Category filter
+        categories = ["All Categories", "Data Visualization", "Predictive Models", "LLM Use Cases"]
+        selected_category = st.selectbox("📊 Select Category", categories)
+
+    # Define all projects
+    def launch_sales_dashboard():
+        import project_app_files.retail.data_viz.sales_insights as sales_insights
+        sales_insights.show_dashboard()
+
+    def launch_customer_insights():
+        import project_app_files.retail.data_viz.customer_insights as customer_insights
+        customer_insights.show_dashboard()
+
+    projects = [
+        {
+            "title": "📊 Retail Sales Analytics Dashboard",
+            "description": "An endeavor in retail analytics through interactive visualization, harnessing data insights for enhanced business intelligence.",
+            "domain": "Retail",
+            "category": "Data Visualization",
+            "key": "retail_dashboard",
+            "on_click": launch_sales_dashboard
+        },
+        {
+            "title": "🎯 Personalized Product Recommendations Engine",
+            "description": "A sophisticated recommendation system that combines collaborative filtering, content-based filtering, and real-time behavior analysis to deliver personalized product suggestions. Features include hybrid recommendation approach combining user behavior and purchase history, real-time preference learning, A/B testing framework, cross-category discovery, and seasonal trend awareness. Achieved 27% increase in cross-selling success rate, 35% improvement in customer engagement, and 18% boost in average order value.",
+            "domain": "Retail",
+            "category": "Predictive Models",
+            "key": "product_recommendations",
+            "on_click": None
+        }
+    ]
+
+    # Filter projects based on selection
+    filtered_projects = projects
+    if selected_domain != "All Domains":
+        filtered_projects = [p for p in filtered_projects if p["domain"] == selected_domain]
+    if selected_category != "All Categories":
+        filtered_projects = [p for p in filtered_projects if p["category"] == selected_category]
+
+    # Display project count
+    st.caption(f"Showing {len(filtered_projects)} of {len(projects)} projects")
     
-    # Create tabs for each domain
-    retail_tab, finance_tab, tech_tab, manufacturing_tab, healthcare_tab, other_tab = st.tabs([
-        "🛍️ Retail", 
-        "💰 Finance", 
-        "🤖 Tech & AI",
-        "🏭 Manufacturing",
-        "🏥 Healthcare",
-        "🔄 Other"
-    ])
-    
-    with retail_tab:
-        viz_tab, pred_tab, llm_tab = st.tabs(["📊 Data Visualization", "🔮 Predictive Models", "🤖 LLM Use Cases"])
-        
-        with viz_tab:
-            def launch_dashboard():
-                import project_app_files.retail.data_viz.sales_insights as sales_insights
-                sales_insights.show_dashboard()
-
-            project_card(
-                "📊 Retail Sales Analytics Dashboard",
-                "An endeavor in retail analytics through interactive visualization, harnessing data insights for enhanced business intelligence.",
-                "retail_dashboard",
-                launch_dashboard
-            )
-        
-        with pred_tab:
-            def launch_customer_insights():
-                import project_app_files.retail.data_viz.customer_insights as customer_insights
-                customer_insights.show_dashboard()
-
-            project_card(
-                "👥 Customer Churn Analytics",
-                "An endeavor in customer churn prediction through logistic regression, harnessing data science for enhanced customer retention.",
-                "churn_analytics"
-            )
-        
-        with llm_tab:
-            project_card(
-                "🤖 Retail Chat Assistant",
-                "An intelligent chatbot leveraging LLMs to provide customer support and product recommendations.",
-                "retail_chat"
-            )
-
-    with finance_tab:
-        viz_tab, pred_tab, llm_tab = st.tabs(["📊 Data Visualization", "🔮 Predictive Models", "🤖 LLM Use Cases"])
-        for tab in [viz_tab, pred_tab, llm_tab]:
-            with tab:
-                st.info("Finance analytics projects coming soon!")
-
-    with tech_tab:
-        viz_tab, pred_tab, llm_tab = st.tabs(["📊 Data Visualization", "🔮 Predictive Models", "🤖 LLM Use Cases"])
-        for tab in [viz_tab, pred_tab, llm_tab]:
-            with tab:
-                st.info("Technology and AI projects coming soon!")
-
-    with manufacturing_tab:
-        viz_tab, pred_tab, llm_tab = st.tabs(["📊 Data Visualization", "🔮 Predictive Models", "🤖 LLM Use Cases"])
-        for tab in [viz_tab, pred_tab, llm_tab]:
-            with tab:
-                st.info("Manufacturing analytics projects coming soon!")
-
-    with healthcare_tab:
-        viz_tab, pred_tab, llm_tab = st.tabs(["📊 Data Visualization", "🔮 Predictive Models", "🤖 LLM Use Cases"])
-        for tab in [viz_tab, pred_tab, llm_tab]:
-            with tab:
-                st.info("Healthcare analytics projects coming soon!")
-
-    with other_tab:
-        viz_tab, pred_tab, llm_tab = st.tabs(["📊 Data Visualization", "🔮 Predictive Models", "🤖 LLM Use Cases"])
-        for tab in [viz_tab, pred_tab, llm_tab]:
-            with tab:
-                st.info("More projects coming soon!")
+    # Display filtered projects
+    for project in filtered_projects:
+        project_card(
+            title=project["title"],
+            description=project["description"],
+            domain=project["domain"],
+            category=project["category"],
+            button_key=project["key"],
+            on_click=project["on_click"]
+        )

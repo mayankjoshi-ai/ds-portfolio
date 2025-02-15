@@ -8,47 +8,47 @@ from scipy import stats
 import os
 
 def show_dashboard():
-    # Add Back Button
-    col1, col2 = st.columns([1, 11])
-    with col1:
-        if st.button("← Back"):
-            st.switch_page("pages/projects.py")
-    with col2:
-        st.title("📊 Retail Sales Analytics Dashboard")
-    
-    st.markdown("*An interactive dashboard for analyzing retail sales performance*")
-    st.markdown("---")
-
-    # Custom CSS for better UI
-    st.markdown("""
-        <style>
-        .main {
-            padding: 0rem 1rem;
-        }
-        .stMetric {
-            background-color: #f0f2f6;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2, h3 {
-            color: #1f77b4;
-        }
-        .stSidebar {
-            background-color: #f8f9fa;
-            padding: 1rem;
-        }
-        .insight-card {
-            background-color: #ffffff;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
     try:
+        # Add Back Button
+        col1, col2 = st.columns([1, 11])
+        with col1:
+            if st.button("← Back"):
+                st.switch_page("pages/projects.py")
+        with col2:
+            st.title("📊 Retail Sales Analytics Dashboard")
+        
+        st.markdown("*An interactive dashboard for analyzing retail sales performance*")
+        st.markdown("---")
+
+        # Custom CSS for better UI
+        st.markdown("""
+            <style>
+            .main {
+                padding: 0rem 1rem;
+            }
+            .stMetric {
+                background-color: #f0f2f6;
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            h1, h2, h3 {
+                color: #1f77b4;
+            }
+            .stSidebar {
+                background-color: #f8f9fa;
+                padding: 1rem;
+            }
+            .insight-card {
+                background-color: #ffffff;
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-bottom: 1rem;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
         # Get the current file's directory and construct relative path
         current_dir = os.path.dirname(os.path.abspath(__file__))
         data_path = os.path.join(current_dir, "retail_sales_dataset.csv")
@@ -57,10 +57,7 @@ def show_dashboard():
         # Data Preprocessing
         df['Date'] = pd.to_datetime(df['Date'])
         df['Year'] = df['Date'].dt.year
-        
-        # Remove 2023 data
         df = df[df['Year'] != 2024]
-        
         df['Month'] = df['Date'].dt.month
         df['Month_Name'] = df['Date'].dt.strftime('%B')
         df['YearMonth'] = df['Date'].dt.strftime('%Y-%m')

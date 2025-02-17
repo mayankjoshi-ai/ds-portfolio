@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from pages import introduction, projects, interactive_tools, contact, blog
+from pages import introduction, projects, contact, blog
 from utils.style import load_css
 
 def main():
@@ -32,8 +32,6 @@ def main():
         introduction.show_page()
     elif selected == "Projects":
         projects.show_page()
-    # elif selected == "Interactive Tools":
-        # interactive_tools.show_page()
     elif selected == "Contact":
         contact.show_page()
     elif selected == "Blog":

@@ -9,6 +9,27 @@ import os
 
 def show_dashboard():
     try:
+        # Get the current file's directory and construct relative path
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        data_path = os.path.join(current_dir, "retail_sales_dataset.csv")
+        
+        # Check if the dataset file exists
+        if not os.path.exists(data_path):
+            st.error("Dataset file not found. Please ensure 'retail_sales_dataset.csv' exists in the correct location.")
+            return
+        
+        try:
+            df = pd.read_csv(data_path)
+        except pd.errors.EmptyDataError:
+            st.error("The dataset file is empty. Please check the file contents.")
+            return
+        except pd.errors.ParserError:
+            st.error("Error parsing the dataset file. Please ensure it's a valid CSV file.")
+            return
+        except Exception as e:
+            st.error(f"Error reading the dataset: {str(e)}")
+            return
+
         # Add Back Button
         col1, col2 = st.columns([1, 11])
         with col1:
@@ -49,16 +70,11 @@ def show_dashboard():
             </style>
         """, unsafe_allow_html=True)
 
-        # Get the current file's directory and construct relative path
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        data_path = os.path.join(current_dir, "retail_sales_dataset.csv")
-        df = pd.read_csv(data_path)
-
-# Data Preprocessing
-df['Date'] = pd.to_datetime(df['Date'])
-df['Year'] = df['Date'].dt.year
-        df = df[df['Year'] != 2024]
-df['Month'] = df['Date'].dt.month
+        # Data Preprocessing
+        df['Date'] = pd.to_datetime(df['Date'])
+        df['Year'] = df['Date'].dt.year
+        df = df[df['Year'] != 2024]  # Update year filter
+        df['Month'] = df['Date'].dt.month
         df['Month_Name'] = df['Date'].dt.strftime('%B')
         df['YearMonth'] = df['Date'].dt.strftime('%Y-%m')
 
@@ -69,7 +85,7 @@ df['Month'] = df['Date'].dt.month
             'September': 9, 'October': 10, 'November': 11, 'December': 12
         }
 
-# Sidebar Filters
+        # Sidebar Filters
         with st.sidebar:
             st.header("📌 Dashboard Filters")
             st.markdown("---")
@@ -92,12 +108,12 @@ df['Month'] = df['Date'].dt.month
             age_ranges = ['All', '18-25', '26-35', '36-45', '46-55', '55+']
             selected_age = st.selectbox("👥 Select Age Range", age_ranges)
 
-# Filter Data
+        # Filter Data
         filtered_df = df.copy()
         
-if selected_month != 'All':
+        if selected_month != 'All':
             filtered_df = filtered_df[filtered_df['Month_Name'] == selected_month]
-if selected_category != 'All':
+        if selected_category != 'All':
             filtered_df = filtered_df[filtered_df['Product Category'] == selected_category]
         if selected_gender != 'All':
             filtered_df = filtered_df[filtered_df['Gender'] == selected_gender]

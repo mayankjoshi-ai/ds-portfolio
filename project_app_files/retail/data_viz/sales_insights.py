@@ -53,12 +53,12 @@ def show_dashboard():
         current_dir = os.path.dirname(os.path.abspath(__file__))
         data_path = os.path.join(current_dir, "retail_sales_dataset.csv")
         df = pd.read_csv(data_path)
-        
-        # Data Preprocessing
-        df['Date'] = pd.to_datetime(df['Date'])
-        df['Year'] = df['Date'].dt.year
+
+# Data Preprocessing
+df['Date'] = pd.to_datetime(df['Date'])
+df['Year'] = df['Date'].dt.year
         df = df[df['Year'] != 2024]
-        df['Month'] = df['Date'].dt.month
+df['Month'] = df['Date'].dt.month
         df['Month_Name'] = df['Date'].dt.strftime('%B')
         df['YearMonth'] = df['Date'].dt.strftime('%Y-%m')
 
@@ -69,7 +69,7 @@ def show_dashboard():
             'September': 9, 'October': 10, 'November': 11, 'December': 12
         }
 
-        # Sidebar Filters
+# Sidebar Filters
         with st.sidebar:
             st.header("📌 Dashboard Filters")
             st.markdown("---")
@@ -92,12 +92,12 @@ def show_dashboard():
             age_ranges = ['All', '18-25', '26-35', '36-45', '46-55', '55+']
             selected_age = st.selectbox("👥 Select Age Range", age_ranges)
 
-        # Filter Data
+# Filter Data
         filtered_df = df.copy()
         
-        if selected_month != 'All':
+if selected_month != 'All':
             filtered_df = filtered_df[filtered_df['Month_Name'] == selected_month]
-        if selected_category != 'All':
+if selected_category != 'All':
             filtered_df = filtered_df[filtered_df['Product Category'] == selected_category]
         if selected_gender != 'All':
             filtered_df = filtered_df[filtered_df['Gender'] == selected_gender]

@@ -75,10 +75,6 @@ def show_page():
         import project_app_files.retail.data_viz.sales_insights as sales_insights
         sales_insights.show_dashboard()
 
-    def launch_customer_insights():
-        import project_app_files.retail.data_viz.customer_insights as customer_insights
-        customer_insights.show_dashboard()
-
     projects = [
         {
             "title": "📊 Retail Sales Analytics Dashboard",
@@ -89,7 +85,6 @@ def show_page():
             "on_click": launch_sales_dashboard
         }
     ]
-
     # Filter projects based on selection
     filtered_projects = projects
     if selected_domain != "All Domains":

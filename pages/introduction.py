@@ -227,7 +227,7 @@ def show_page():
     
     st.title("🙋‍♂️ Welcome to Mayank's Data Science Portfolio!")
     # st.image("images/mayank_pic.jpg", caption="AI Scientist", use_container_width=True)
-    st.write("Hi, I'm Mayank Joshi, a curious AI Scientist with 6+ years of experience in Data Science and Analytics who loves solving real-world problems with AI and analytics. From crafting predictive models to automating workflows, I bring ideas to life with data. Always innovating, always learning—I'm here to make technology work smarter, not harder, for everyone.")
+    st.write("Hi, I'm Mayank Joshi, a curious AI Scientist with 7+ years of experience in Data Science and Analytics who loves solving real-world problems with AI and analytics. From crafting predictive models to automating workflows, I bring ideas to life with data. Always innovating, always learning—I'm here to make technology work smarter, not harder, for everyone.")
 
     # Fun Fact Display
     st.info("""

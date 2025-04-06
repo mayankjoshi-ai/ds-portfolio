@@ -21,8 +21,10 @@ def main():
         st.image("images/mayank_pic.jpg", caption="AI Scientist", use_container_width=True)
         selected = option_menu(
             menu_title="Main Menu",
-            options=["Home", "Projects", "Blog", "Contact"],
-            icons=["house", "list-task", "tools", "book", "envelope"],
+            # options=["Home", "Projects", "Blog", "Contact"],
+            # icons=["house", "list-task", "tools", "book", "envelope"],
+            options=["Home", "Blog", "Contact"],
+            icons=["house", "book", "envelope"],
             menu_icon="cast",
             default_index=0,
         )
@@ -30,8 +32,8 @@ def main():
     # Page Selection
     if selected == "Home":
         introduction.show_page()
-    elif selected == "Projects":
-        projects.show_page()
+    # elif selected == "Projects":
+    #     projects.show_page()
     elif selected == "Contact":
         contact.show_page()
     elif selected == "Blog":

@@ -41,3 +41,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+    st.markdown("---")
+    st.markdown("<p style='text-align: center'>Copyright © 2025 Mayank Joshi. All rights reserved.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center'>Created by Mayank Joshi</p>", unsafe_allow_html=True)
